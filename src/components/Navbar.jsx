@@ -14,7 +14,7 @@ export default function Navbar() {
             <span className="text-white text-sm font-semibold">CRON</span>
           </div>
           <h1 className="font-semibold text-xl text-slate-900 dark:text-slate-100">
-            Cron Apps Manager
+            CronApps Manager
           </h1>
         </div>
 
