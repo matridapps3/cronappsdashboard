@@ -1,10 +1,10 @@
 import { Pool } from 'pg'
 
 const newPool = new Pool({
-    host:'postgres',
+    host:'localhost',
     user:'postgres',
-    password: '1234',
-    database:'railway',
+    password: '123456',
+    database:'cronappsdatabase',
     port:5432
 })
 
