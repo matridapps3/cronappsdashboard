@@ -9,14 +9,26 @@ export default function DynamicAppTab({ columnName, displayName }) {
   useEffect(() => {
     if (!columnName) return;
 
+    setData([]);
+    setError(null);
+
     async function fetchData() {
       try {
-        const response = await fetch(`/api/data?column=${encodeURIComponent(columnName)}`);
+        const response = await fetch(`/api/data/apptable?app=${encodeURIComponent(columnName)}`);
         const result = await response.json();
+        
+        if (!response.ok) {
+          setError(result.error || result.message || "Failed to load data");
+          setData([]);
+          return;
+        }
+        
         setData(result.data || []);
         setError(null);
       } catch (err) {
+        console.error("Fetch error:", err);
         setError("Failed to load data");
+        setData([]);
       }
     }
 
@@ -28,9 +40,9 @@ export default function DynamicAppTab({ columnName, displayName }) {
     : [];
 
   return (
-    <div className="w-full p-6 lg:p-8">
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">
+    <div className="w-full h-full min-h-0 p-6 lg:p-8 flex flex-col">
+      <div className="flex items-center justify-between mb-4 shrink-0">
+        <h1 className="text-2xl text-blue-600 font-semibold dark:text-slate-100">
           {displayName || columnName}
         </h1>
       </div>
@@ -48,12 +60,12 @@ export default function DynamicAppTab({ columnName, displayName }) {
       )}
 
       {!error && data.length > 0 && (
-        <div className="overflow-x-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg">
-          <table className="w-full text-base">
-            <thead className="bg-slate-50 dark:bg-slate-800/50 sticky top-0">
+        <div className="flex-1 min-h-0 overflow-x-auto overflow-y-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg">
+          <table className="min-w-full text-base border-separate border-spacing-0">
+            <thead>
               <tr>
                 {headers.map((h) => (
-                  <th key={h} className="px-5 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">
+                  <th key={h} className="px-5 py-4 text-left font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap bg-slate-50 dark:bg-slate-800/50 sticky top-0 z-20">
                     {h.replace(/_/g, " ")}
                   </th>
                 ))}
@@ -68,7 +80,7 @@ export default function DynamicAppTab({ columnName, displayName }) {
                   } hover:bg-blue-50/60 dark:hover:bg-blue-950/20`}
                 >
                   {headers.map((h) => (
-                    <td key={h} className="px-5 py-4 text-slate-700 dark:text-slate-300">
+                    <td key={h} className="px-5 py-4 text-slate-700 dark:text-slate-300 whitespace-nowrap">
                       {row[h] ?? "-"}
                     </td>
                   ))}

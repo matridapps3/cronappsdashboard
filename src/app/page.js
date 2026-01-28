@@ -11,15 +11,18 @@ export default function Home() {
   useEffect(() => {
     async function fetchApps() {
       try {
-        const response = await fetch("/api/data");
+        const response = await fetch("/api/data/");
         const result = await response.json();
-        
-        const appsData = result.columns.map((col) => ({
-          id: col.name.toLowerCase().replace(/\s+/g, "-"),
-          name: col.displayName || col.name,
-          columnName: col.name,
-        }));
-        
+
+        const appsData = result.map((row) => {
+          const appName = row.app_name;
+          return {
+            id: String(appName || ""),
+            name: appName,
+            columnName: appName,
+          };
+        });
+
         setApps(appsData);
         if (appsData.length > 0) {
           setActiveApp((prev) => prev || appsData[0]);
@@ -33,11 +36,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="pt-16 flex min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="pt-16 flex h-screen min-h-0 overflow-hidden bg-slate-50 dark:bg-slate-950 animate-fadeIn">
       <Sidebar 
         onAppClick={setActiveApp} 
         activeTab={activeApp?.id} 
-        apps={apps} 
+        apps={apps}
       />
       <TabContainer activeApp={activeApp} />
     </div>
