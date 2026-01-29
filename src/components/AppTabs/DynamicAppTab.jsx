@@ -36,7 +36,7 @@ export default function DynamicAppTab({ columnName, displayName }) {
   }, [columnName]);
 
   const headers = data.length > 0 
-    ? [...new Set(data.flatMap(row => Object.keys(row)))].filter((k) => k !== "id")
+    ? [...new Set(data.flatMap(row => Object.keys(row)))]
     : [];
 
   return (
@@ -60,7 +60,23 @@ export default function DynamicAppTab({ columnName, displayName }) {
       )}
 
       {!error && data.length > 0 && (
+
         <div className="custom-scrollbar flex-1 pb-6 overflow-x-auto overflow-y-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg">
+          
+          <div className="h-45 w-full px-20 flex justify-between items-center sticky left-0">
+            <div className="h-40 w-70 border flex justify-center items-center border-gray-300 rounded-2xl">
+              <p>Overview 1</p>
+            </div>
+
+            <div className="h-40 w-70 border flex justify-center items-center border-gray-300 rounded-2xl">
+              <p>Overview 2</p>
+            </div>
+
+            <div className="h-40 w-70 border flex justify-center items-center border-gray-300 rounded-2xl">
+              <p>Overview 3</p>
+            </div>
+          </div>
+          
           <table className="min-w-full text-base border-separate border-spacing-0">
             <thead>
               <tr>
