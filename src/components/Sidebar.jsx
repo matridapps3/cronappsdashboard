@@ -24,7 +24,7 @@ export default function Sidebar({ onAppClick, activeTab, apps }) {
                   className={`w-full relative hover:scale-95 cursor-pointer flex items-center rounded-lg text-left transition-colors border ${
                     isActive
                       ? "bg-blue-50 dark:bg-blue-950/30 text-blue-900 dark:text-blue-100 border-blue-200 dark:border-blue-900/40"
-                      : `text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600/70 hover:bg-slate-50 dark:hover:bg-slate-800/50 ${
+                      : `text-slate-700 font-semibold dark:text-slate-300 border-slate-300 dark:border-slate-600/70 hover:bg-slate-50 dark:hover:bg-slate-800/50 ${
                         isAlt ? "bg-slate-100/80 dark:bg-slate-800/40" : "bg-white dark:bg-slate-900"
                         }`
                   }`}
@@ -36,7 +36,7 @@ export default function Sidebar({ onAppClick, activeTab, apps }) {
                       isActive ? "bg-blue-600 dark:bg-blue-500" : "bg-blue-200 dark:bg-blue-950/50"
                     }`}
                   />
-                  <span className={`flex-1 min-w-0 truncate px-3 py-2.5 text-base ${isActive ? "font-semibold" : ""}`}>
+                  <span className={`flex-1 min-w-0 truncate px-3 py-2.5 text-sm ${isActive ? "font-bold" : ""}`}>
                     {app.name}
                   </span>
                 </button>

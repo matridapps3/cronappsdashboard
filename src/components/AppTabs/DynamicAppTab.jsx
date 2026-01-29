@@ -40,7 +40,7 @@ export default function DynamicAppTab({ columnName, displayName }) {
     : [];
 
   return (
-    <div className="w-full h-full min-h-0 p-6 lg:p-8 flex flex-col">
+    <div className="w-full overflow-hidden max-h-[calc(100vh-70px)] min-h-0 p-6 lg:p-8 lg:pb-8 flex flex-col">
       <div className="flex items-center justify-between mb-4 shrink-0">
         <h1 className="text-2xl text-blue-600 font-semibold dark:text-slate-100">
           {displayName || columnName}
@@ -48,7 +48,7 @@ export default function DynamicAppTab({ columnName, displayName }) {
       </div>
 
       {error && (
-        <div className="mb-4 rounded border border-red-200 dark:border-red-900/40 bg-red-50 dark:bg-red-950/20 px-4 py-3 text-red-700 dark:text-red-300">
+        <div className="mb-4 rounded border-red-200 dark:border-red-900/40 bg-red-50 dark:bg-red-950/20 px-4 py-3 text-red-700 dark:text-red-300">
           {error}
         </div>
       )}
@@ -60,12 +60,12 @@ export default function DynamicAppTab({ columnName, displayName }) {
       )}
 
       {!error && data.length > 0 && (
-        <div className="flex-1 min-h-0 overflow-x-auto overflow-y-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg">
+        <div className="custom-scrollbar flex-1 pb-6 overflow-x-auto overflow-y-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg">
           <table className="min-w-full text-base border-separate border-spacing-0">
             <thead>
               <tr>
                 {headers.map((h) => (
-                  <th key={h} className="px-5 py-4 text-left font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap bg-slate-50 dark:bg-slate-800/50 sticky top-0 z-20">
+                  <th key={h} className="px-5 py-4 text-left font-semibold text-slate-800 dark:text-slate-300 whitespace-nowrap bg-slate-50 dark:bg-slate-800/50 sticky top-0 z-20">
                     {h.replace(/_/g, " ")}
                   </th>
                 ))}
@@ -80,7 +80,12 @@ export default function DynamicAppTab({ columnName, displayName }) {
                   } hover:bg-blue-50/60 dark:hover:bg-blue-950/20`}
                 >
                   {headers.map((h) => (
-                    <td key={h} className="px-5 py-4 text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                    i%2 === 0 ? 
+                    <td key={h} className="px-5 text-sm py-4 bg-gray-200 text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                      {row[h] ?? "-"}
+                    </td>
+                    :
+                    <td key={h} className="px-5 text-sm py-4 text-slate-700 dark:text-slate-300 whitespace-nowrap">
                       {row[h] ?? "-"}
                     </td>
                   ))}
